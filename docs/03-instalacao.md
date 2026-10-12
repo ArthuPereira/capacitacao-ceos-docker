@@ -5,14 +5,14 @@ Vale lembrar que o docker tem uma versão tradicional via terminal e outra com i
 ## Docker Engine
 O Docker engine é a forma mais tradicional que citei, os comandos e pacotes mudam um pouco de sistema para sistema, então dê preferência para o [guia oficial](https://docs.docker.com/engine/install/)
 
-## Pós instalação
+## Pós-instalação
 Esse passo é opcional, mas ajuda bastante, que é adicionar o seu usuário ao grupo Docker, por padrão, só o `root` consegue usar o Docker. Para não precisar digitar `sudo` toda vez:
 
 ```bash
 sudo usermod -aG docker $USER
 ```
 
-Depois fecha essa aba do terminal e abra outra, já deve estar funcionando, e para testar, use isso:
+Depois feche essa aba do terminal e abra outra, já deve estar funcionando. Para testar, use:
 
 ```
 docker --version
@@ -37,7 +37,7 @@ This message shows that your installation appears to be working correctly.
 Recomendo fortemente ler todo o resultado, pois ele explica o fluxo desde o comando até esse "Hello"
 
 ## Teste um pouco mais a fundo
-Um próximo passo que o próprio hello-world recomenda é rodar o bash de uma imagem de Ubuntu de forma iterativa
+Um próximo passo que o próprio hello-world recomenda é rodar o bash de uma imagem de Ubuntu de forma interativa
 
 ```bash
 docker run -it ubuntu bash

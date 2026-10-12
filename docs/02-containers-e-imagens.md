@@ -6,7 +6,7 @@ O `container` é uma unidade básica que o docker manipula, dentro dele você po
 
 `Imagens` são modelos de como criar um container de determinado serviço, como uma receita ou um molde. Com elas você pode encapsular seu código e/ou serviço em um pacote reutilizável e compartilhável.
 
-Agora, como exercício mental pense que na Ceos começamos um novo projeto que usamos uma API em python, todos os times precisam ter acesso a API para testar e desenvolver. Disponilizando uma imagem dela cada um poderia ter quantas cópias quisesse em vários containers.
+Agora, como exercício mental, pense que na Ceos começamos um novo projeto no qual usamos uma API em Python: todos os times precisam ter acesso à API para testar e desenvolver. Disponibilizando uma imagem dela, cada um poderia ter quantas cópias quisesse em vários containers.
 
 Essa ideia de disponibilizar imagens é feita especialmente pelo [Docker Hub](https://hub.docker.com/), é de lá que pegamos as imagens oficiais dos serviços que vamos usar.
 
