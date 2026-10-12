@@ -12,7 +12,7 @@ O arquivo de definição que resolve isso é o `docker-compose.yml`, e junto del
 - `docker compose stop` que encerra todos os serviços
 - `docker compose ps` para listar todos os containers que o compose iniciou
 
-> A instalação do compose pode ser feita gerenciadores de pacotes como o apt para ambiente Ubuntu ou a versão Desktop
+> A instalação do Compose pode ser feita via gerenciadores de pacotes como o apt para ambiente Ubuntu ou através do Docker Desktop.
 
 Para entendermos melhor como usar o compose vamos dissecar um arquivo de exemplo:
 ```yaml
@@ -60,7 +60,7 @@ ports:
   - "3000:3000"
 ```
 
-Isso é o mesmo `-p 3000:3000` que já usamos no docker run para conectar um banco ou servir uma página, declaramos a porta do nosso pc a esquerda e a do servidor a direita.
+Isso é o mesmo `-p 3000:3000` que já usamos no docker run para conectar um banco ou servir uma página, declaramos a porta do nosso PC à esquerda e a do container à direita.
 
 ---
 
@@ -80,7 +80,14 @@ environment:
   - REDIS_URL=redis://senha@redis:6379
 ```
 
-Equivalente ao `-e` do docker run. Repare em uma coisa importante: no lugar de localhost, a URL usa db e redis, que são exatamente os nomes dos serviços definidos acima. O compose cria uma rede interna automaticamente onde cada serviço enxerga o outro pelo próprio nome, como se fosse um hostname. Isso resolve algo que seria bem mais chato de fazer manualmente mas que nem falamos sobre para não complicar demais.
+Equivalente ao `-e` do docker run. Repare em uma coisa fundamental: no lugar de `localhost`, a URL usa `db` e `redis`, que são exatamente os nomes dos serviços definidos acima.
+
+### O Pulo do Gato: Redes e DNS no Docker Compose
+Por que não usamos `localhost` na URL de conexão?
+- Dentro do container da API, `localhost` refere-se ao **próprio container da API**, onde não há nenhum banco de dados rodando!
+- Ao iniciar, o Docker Compose cria automaticamente uma **rede interna dedicada**.
+- O Docker possui um servidor de DNS embutido nessa rede: cada serviço passa a ser encontrado pelo seu próprio nome de serviço (`db`, `redis`, `api`).
+- **E as portas em `ports`?** O mapeamento `- "5432:5432"` no banco serve apenas para o **seu computador host** acessar o banco de dados (ex: pelo DBeaver). Entre os containers na rede interna do Compose, a comunicação acontece de forma direta e isolada.
 
 ---
 
@@ -111,8 +118,38 @@ volumes:
 
 Esse bloco no final, fora de services, é onde o compose declara os volumes nomeados que vão ser usados, é o equivalente ao `docker volume create dados_db` que rodamos antes do docker run do banco de dados. Sem essa declaração aqui, o volume citado lá em cima não existiria.
 
+---
+
+## Comandos Essenciais do Dia a Dia com Compose
+
+No fluxo diário de desenvolvimento, você usará principalmente estes comandos:
+
+```bash
+# Iniciar todos os serviços em segundo plano
+docker compose up -d
+
+# Reconstruir imagens e subir (útil após instalar dependências novas)
+docker compose up -d --build
+
+# Acompanhar logs de todos os serviços (ou de um específico)
+docker compose logs -f
+docker compose logs -f api
+
+# Executar comandos dentro de um serviço em execução (ex: terminal ou migrations)
+docker compose exec api sh
+
+# Reiniciar um serviço específico sem parar os demais
+docker compose restart api
+
+# Encerrar e remover containers e redes criadas
+docker compose down
+
+# Encerrar e APAGAR também os volumes (reseta o banco de dados do zero!)
+docker compose down -v
+```
+
 ## Usando Docker Compose na prática
-Agora que já temos uma base dos conceitos e da prática chegou a hora de ir para um ambiente mais próximo da realidade. O [Laboratório 2](../labs/fastAPI/lab-02.md) reune vários dos conceitos que já vimos em um repositório de uma api Python com fastAPI. Vamos lá!
+Agora que já temos uma base sólida dos conceitos e da prática, chegou a hora de ir para um ambiente real. O [Laboratório 2](../labs/fastAPI/lab-02.md) reúne vários dos conceitos que já vimos em um repositório de uma API Python com FastAPI e PostgreSQL. Vamos lá!
 
 <div align="center">
     <a href="./06-volumes.md">←Voltar</a>
