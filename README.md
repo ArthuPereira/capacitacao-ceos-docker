@@ -9,7 +9,7 @@
 <br>
 
 <p>
-    O objetivos dessa capacitação é apresentar Docker e as tecnologias de containers no ambiente de desenvolvimento para os menbros da Ceos Jr.
+    O objetivo dessa capacitação é apresentar Docker e as tecnologias de containers no ambiente de desenvolvimento para os membros da Ceos Jr.
 </p>
 
 <a href="https://docs.docker.com/">
@@ -29,5 +29,5 @@
     - [Laboratório 1 - Hospedando site estático](./labs/site-estatico/lab-01.md)
 - [Armazenamento com volumes](./docs/06-volumes.md)
 - [Docker Compose](./docs/07-compose.md)
-    - [Laboratório 2 - Usando compose para preparar ambiente](./labs/)
+    - [Laboratório 2 - Usando compose para preparar ambiente](./labs/fastAPI/lab-02.md)
 - [Boas práticas e próximos passos](./docs/08-boas-praticas.md)
